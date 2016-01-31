@@ -28,8 +28,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="114"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F4f-aO-Y50">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F4f-aO-Y50">
                                                     <rect key="frame" x="8" y="0.0" width="86" height="87"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="87" id="Hjy-ho-oG3"/>
+                                                        <constraint firstAttribute="width" constant="86" id="m4a-K6-RjF"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1. restaurant" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kZ-Ib-sKu">
                                                     <rect key="frame" x="102" y="3" width="192" height="21"/>
@@ -71,6 +75,10 @@
                                                     <rect key="frame" x="102" y="27" width="121" height="23"/>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="F4f-aO-Y50" firstAttribute="leading" secondItem="4kX-Em-yfW" secondAttribute="leading" constant="8" id="i6k-UZ-G4V"/>
+                                                <constraint firstItem="F4f-aO-Y50" firstAttribute="top" secondItem="4kX-Em-yfW" secondAttribute="top" id="uhB-ya-rRr"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="5cx-1L-i4X" id="6T7-Eh-M0I"/>
