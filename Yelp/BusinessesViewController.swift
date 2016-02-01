@@ -8,23 +8,27 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     var businesses: [Business]!
+    var filteredData: [AnyObject]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
 
         Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
-            
+            self.filteredData = self.businesses
             self.tableView.reloadData()
         
             for business in businesses {
@@ -53,7 +57,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if businesses != nil{
-            return businesses.count
+            return businesses!.count
         }
         else{
             return 0
@@ -67,6 +71,44 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         return cell
     }
+    
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        print("is it really working tho")
+        if searchText.isEmpty {
+            filteredData = businesses
+        } else {
+            // The user has entered text into the search box
+            // Use the filter method on the array to iterate over all items in the data array
+            // For each item, return true if the item should be included and false if the
+            // item should NOT be included
+            
+            filteredData = businesses!.filter({(dataItem: AnyObject) -> Bool in
+                
+                
+                // If dataItem matches the searchText, return true to include it
+                let title = dataItem["name"] as? String
+                if title!.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                    print("found")
+                    return true
+                } else {
+                    print("nah")
+                    return false
+                }
+            })
+            
+        }
+        tableView.reloadData()
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
