@@ -11,15 +11,18 @@ import UIKit
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var searchBar: UISearchBar!
     var businesses: [Business]!
     var filteredData: [AnyObject]?
+    var searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Find a place!"
         
         searchBar.delegate = self
+        navigationItem.titleView = searchBar
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -77,8 +80,16 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.searchBar.showsCancelButton = true
     }
     
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = nil;
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
+        print("oh yea")
+        
+    }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    
+    /*func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         print("is it really working tho")
         if searchText.isEmpty {
@@ -89,7 +100,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             // For each item, return true if the item should be included and false if the
             // item should NOT be included
             
-            filteredData = businesses!.filter({(dataItem: AnyObject) -> Bool in
+            filteredData = businesses!.filter({(dataItem: String) -> Bool in
                 
                 
                 // If dataItem matches the searchText, return true to include it
@@ -105,7 +116,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             
         }
         tableView.reloadData()
-    }
+    }*/
     
     
     
